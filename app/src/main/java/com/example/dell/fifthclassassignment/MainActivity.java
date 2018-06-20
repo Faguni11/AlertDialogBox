@@ -1,9 +1,11 @@
 package com.example.dell.fifthclassassignment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.UnicodeSetSpanner;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -118,7 +120,7 @@ startActivity(intent);
         details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PinActivity.class);
+                Intent intent = new Intent(MainActivity.this, RegisterationDetails.class);
                 String mail=email.getText().toString();
                 String pass=password.getText().toString();
                 String phoneNo=phone.getText().toString();
@@ -167,7 +169,32 @@ startActivity(intent);
             Toast.makeText(MainActivity.this,"DETAILS SAVED",Toast.LENGTH_SHORT).show();
         }
     });
-
+    
+    
     }
-
+    public void onBackPressed() {
+        openAlert();
+    }
+    private void openAlert(){
+        AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setTitle("EXIT APP");
+        alertDialogBuilder.setMessage("ARE YOU SURE YOU WANT TO EXIT");
+        alertDialogBuilder.setIcon(R.mipmap.ic_launcher);
+        alertDialogBuilder.setPositiveButton("Yes,Exit app", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MainActivity.this,"Exiting app",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+        alertDialogBuilder.setNegativeButton("No,don't Exit app", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MainActivity.this,"Staying on the app",Toast.LENGTH_SHORT).show();
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 }
